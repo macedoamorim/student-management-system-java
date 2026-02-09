@@ -29,7 +29,21 @@ public class Program {
 			sc.nextLine();
 			System.out.println();
 
+			switch (option) {
+				case 1:
+					System.out.print("Enter student ID: ");	
+					int id = sc.nextInt();
+					sc.nextLine();
+					System.out.print("Enter student name: ");
+					String name = sc.nextLine();
+					System.out.println();
+					
+					list.add(new Student(id, name));
+					
+					System.out.println("Student registered successfully!");
+					break;		
+			}
+		}
 			sc.close();
-	}
 }
 }
