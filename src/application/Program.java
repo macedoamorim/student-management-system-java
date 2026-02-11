@@ -74,8 +74,10 @@ public class Program {
 					}
 
 					System.out.println("Students IDs:");
+					System.out.println();
+					
 					for (Student std : listStudent) {
-						System.out.printf("%d - %s%n", std.getId(), std.getName());
+						System.out.println(std);
 					}
 
 					System.out.print("Enter student ID: ");
@@ -120,7 +122,57 @@ public class Program {
 					System.out.println("Enrollment completed successfully!");
 					System.out.println();
 					break;
-												 			 
+				
+				case 4:
+					if (listStudent.isEmpty()) {
+						System.out.println("No students registered yet.");
+						System.out.println();
+						break;
+					}
+
+					if (listSubject.isEmpty()) {
+						System.out.println("No subjects registered yet.");
+						System.out.println();
+						break;
+					}
+					
+					System.out.print("Enter student ID: ");
+					int selectedStudentIdGrade = sc.nextInt();
+					sc.nextLine();
+
+					Student selectedStudentGrade = listStudent.stream()
+							.filter(x -> x.getId() == selectedStudentIdGrade)
+							.findFirst()
+							.orElse(null);
+
+					if (selectedStudentGrade == null) {
+						System.out.println("Student not found.");
+						System.out.println();
+						break;
+					}
+					
+					System.out.print("Enter subject ID: ");
+					int selectedSubjectIdGrade = sc.nextInt();
+					sc.nextLine();
+
+					Subject selectedSubjectGrade = listSubject.stream()
+							.filter(x -> x.getId() == selectedSubjectIdGrade)
+							.findFirst()
+							.orElse(null);
+
+					if (selectedSubjectGrade == null) {
+						System.out.println("Subject not found.");
+						System.out.println();
+						break;
+					}
+					
+					System.out.print("Enter grade: ");
+					double grade = sc.nextDouble();
+					System.out.println();
+					
+					listEnrollment.add(new Enrollment(selectedStudentGrade, selectedSubjectGrade, null));
+					
+					System.out.println("Grade assigned successfully!");
 			}
 		}
 			sc.close();
