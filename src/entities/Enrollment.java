@@ -6,6 +6,17 @@ public class Enrollment {
 	private Subject subject;
 	private Double grade;
 	
+	public Enrollment(Student student, Subject subject, Double grade) {
+		this.student = student;
+		this.subject = subject;
+		this.grade = grade;
+	}
+
+	public Enrollment(Student student, Subject subject) {
+		this.student = student;
+		this.subject = subject;
+	}
+
 	public Enrollment(Double grade) {
 		this.grade = grade;
 	}

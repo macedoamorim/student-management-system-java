@@ -3,9 +3,10 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import entities.Subject;
 
+import entities.Enrollment;
 import entities.Student;
+import entities.Subject;
 
 public class Program {
 
@@ -13,6 +14,7 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		List<Student> listStudent = new ArrayList<>();
 		List<Subject> listSubject = new ArrayList<>();
+		List<Enrollment> listEnrollment = new ArrayList<>();
 		int option = -1;
 		
 		while (option != 0) {
@@ -57,6 +59,68 @@ public class Program {
 					System.out.println("Subject registered successfully!");
 					System.out.println();
 					break;
+				
+				case 3: 
+					if (listStudent.isEmpty()) {
+						System.out.println("No students registered yet.");
+						System.out.println();
+						break;
+					}
+
+					if (listSubject.isEmpty()) {
+						System.out.println("No subjects registered yet.");
+						System.out.println();
+						break;
+					}
+
+					System.out.println("Students IDs:");
+					for (Student std : listStudent) {
+						System.out.printf("%d - %s%n", std.getId(), std.getName());
+					}
+
+					System.out.print("Enter student ID: ");
+					int selectedStudentId = sc.nextInt();
+					sc.nextLine();
+
+					Student selectedStudent = listStudent.stream()
+							.filter(x -> x.getId() == selectedStudentId)
+							.findFirst()
+							.orElse(null);
+
+					if (selectedStudent == null) {
+						System.out.println("Student not found.");
+						System.out.println();
+						break;
+					}
+
+					System.out.println();
+					System.out.println("Subjects IDs:");
+					for (Subject sbj : listSubject) {
+						System.out.printf("%d - %s%n", sbj.getId(), sbj.getName());
+					}
+
+					System.out.print("Enter subject ID: ");
+					int selectedSubjectId = sc.nextInt();
+					sc.nextLine();
+
+					Subject selectedSubject = listSubject.stream()
+							.filter(x -> x.getId() == selectedSubjectId)
+							.findFirst()
+							.orElse(null);
+
+					if (selectedSubject == null) {
+						System.out.println("Subject not found.");
+						System.out.println();
+						break;
+					}
+
+					listEnrollment.add(new Enrollment(selectedStudent, selectedSubject));
+
+					System.out.println();
+					System.out.println("Enrollment completed successfully!");
+					System.out.println();
+					break;
+												 			 
 			}
 		}
 			sc.close();
