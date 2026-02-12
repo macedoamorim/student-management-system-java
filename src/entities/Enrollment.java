@@ -20,6 +20,22 @@ public class Enrollment {
 	public Enrollment(Double grade) {
 		this.grade = grade;
 	}
+	
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
 
 	public Double getGrade() {
 		return grade;
@@ -27,6 +43,12 @@ public class Enrollment {
 
 	public void setGrade(Double grade) {
 		this.grade = grade;
+	}
+
+	public String toString() {
+		return "Student: \n" + student.getName() +  
+				"Subject: \n" + subject.getName() +
+				"Grade: \n" + getGrade();
 	}
 	
 }

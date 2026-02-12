@@ -74,20 +74,17 @@ public class Program {
 					}
 
 					System.out.println("Students IDs:");
-					System.out.println();
 					
 					for (Student std : listStudent) {
 						System.out.println(std);
 					}
-
+				
+					System.out.println();
 					System.out.print("Enter student ID: ");
 					int selectedStudentId = sc.nextInt();
 					sc.nextLine();
 
-					Student selectedStudent = listStudent.stream()
-							.filter(x -> x.getId() == selectedStudentId)
-							.findFirst()
-							.orElse(null);
+					Student selectedStudent = listStudent.stream().filter(x -> x.getId() == selectedStudentId).findFirst().orElse(null);
 
 					if (selectedStudent == null) {
 						System.out.println("Student not found.");
@@ -101,14 +98,12 @@ public class Program {
 						System.out.printf("%d - %s%n", sbj.getId(), sbj.getName());
 					}
 
+					System.out.println();
 					System.out.print("Enter subject ID: ");
 					int selectedSubjectId = sc.nextInt();
 					sc.nextLine();
 
-					Subject selectedSubject = listSubject.stream()
-							.filter(x -> x.getId() == selectedSubjectId)
-							.findFirst()
-							.orElse(null);
+					Subject selectedSubject = listSubject.stream().filter(x -> x.getId() == selectedSubjectId).findFirst().orElse(null);
 
 					if (selectedSubject == null) {
 						System.out.println("Subject not found.");
@@ -124,75 +119,79 @@ public class Program {
 					break;
 				
 				case 4:
-					if (listStudent.isEmpty()) {
-						System.out.println("No students registered yet.");
-						System.out.println();
-						break;
-					}
+				    if (listEnrollment.isEmpty()) {
+				        System.out.println("No enrollments found.");
+				        System.out.println();
+				        break;
+				    }
 
-					if (listSubject.isEmpty()) {
-						System.out.println("No subjects registered yet.");
-						System.out.println();
-						break;
-					}
-					
-					System.out.print("Enter student ID: ");
-					int selectedStudentIdGrade = sc.nextInt();
-					sc.nextLine();
+				    System.out.print("Enter student ID: ");
+				    int selectedStudentIdGrade = sc.nextInt();
+				    sc.nextLine();
 
-					Student selectedStudentGrade = listStudent.stream()
-							.filter(x -> x.getId() == selectedStudentIdGrade)
-							.findFirst()
-							.orElse(null);
+				    System.out.print("Enter subject ID: ");
+				    int selectedSubjectIdGrade = sc.nextInt();
+				    sc.nextLine();
 
-					if (selectedStudentGrade == null) {
-						System.out.println("Student not found.");
-						System.out.println();
-						break;
-					}
-					
-					System.out.print("Enter subject ID: ");
-					int selectedSubjectIdGrade = sc.nextInt();
-					sc.nextLine();
+				    Enrollment enrollment = listEnrollment.stream().filter(x -> x.getStudent().getId() == selectedStudentIdGrade && x.getSubject().getId() == selectedSubjectIdGrade).findFirst().orElse(null);
 
-					Subject selectedSubjectGrade = listSubject.stream()
-							.filter(x -> x.getId() == selectedSubjectIdGrade)
-							.findFirst()
-							.orElse(null);
+				    if (enrollment == null) {
+				        System.out.println("Enrollment not found.");
+				        System.out.println();
+				        break;
+				    }
 
-					if (selectedSubjectGrade == null) {
-						System.out.println("Subject not found.");
-						System.out.println();
-						break;
-					}
+				    System.out.print("Enter grade: ");
+				    double grade = sc.nextDouble();
+				    sc.nextLine();
+
+				    enrollment.setGrade(grade);
+
+				    System.out.println("Grade assigned successfully!");
+				    System.out.println();
+				    break;
+
 					
-					System.out.print("Enter grade: ");
-					double grade = sc.nextDouble();
-					System.out.println();
-					
-					listEnrollment.add(new Enrollment(selectedStudentGrade, selectedSubjectGrade, null));
-					
-					System.out.println("Grade assigned successfully!");
+				case 5:
+				    if (listStudent.isEmpty()) {
+				        System.out.println("No students registered.");
+				        System.out.println();
+				        break;
+				    }
+
+				    for (Student student : listStudent) {
+
+				        double sum = 0.0;
+				        int count = 0;
+
+				        for (Enrollment enrl : listEnrollment) {
+				            if (enrl.getStudent().getId() == student.getId() && enrl.getGrade() != null) {
+
+				                sum += enrl.getGrade();
+				                count++;
+				            }
+				        }
+
+				        double average = 0.0;
+				        
+				        if (count > 0) {
+				            average = sum / count;
+				        }
+
+				        System.out.println("Student: " + student.getName());
+				        System.out.printf("Average: %.2f%n", average);
+				        System.out.println();
+				            
+				    }
+
+				    System.out.println();
+				    break;
+				    
+			default: System.out.println("Exiting system...");
+			break;
+			
 			}
 		}
 			sc.close();
 }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
